@@ -103,72 +103,250 @@ server.post("/obter/user/nome", async (req, res) => {
 //   geraRetornoUser(doc.data(), res);
 // });
 
-//get posts
-function trocaImgPost(post){
-  const bucket = admin.storage().bucket();
-  const imgPost = bucket.file(post.imgPost + '.jpg')
-  const imgUsuario = bucket.file(post.imgUsuario + '.jpg')
-  const urlImgPost = imgPost.publicUrl()
-  const urlImgUsuario = imgUsuario.publicUrl()
-  post.imgPost = urlImgPost
-  post.imgUsuario = urlImgUsuario
-  post.comentarios = post.comentarios.map(comentario => {
-    const imgUsuarioComentario = bucket.file(comentario.imgUsuario + '.jpg')
-    const urlImgUsuarioComentario = imgUsuarioComentario.publicUrl()
-    comentario.imgUsuario = urlImgUsuarioComentario
-    return comentario
-  })
-  return post
-}
+server.get("/get-posts-mock", async (req, res) => {
+  const mock = {
+    "message": "Retorno concluído com sucesso!",
+    "data": [
+      {
+        "nomeUsuario": "Melissa de Jesus",
+        "imgUsuario": "19414568706",
+        "tipoPost": "PA",
+        "imgPost": "3275601571",
+        "interacoes": 15,
+        "comentarios": [
+          {
+            "nomeUsuario": "Melissa de Jesus",
+            "imgUsuario": "19414568706",
+            "mensagemComentario": "Adicionei um comentário para testar",
+            "idComentario": "81378640733"
+          },
+          {
+            "nomeUsuario": "Nikolas Alencar",
+            "imgUsuario": "1123456789",
+            "mensagemComentario": "Adicionei um comentário integrado",
+            "idComentario": 4327754304
+          },
+          {
+            "nomeUsuario": "Nikolas Alencar",
+            "imgUsuario": "1123456789",
+            "mensagemComentario": "dsadasdasdas",
+            "idComentario": 458504210
+          },
+          {
+            "nomeUsuario": "Nikolas Alencar",
+            "imgUsuario": "1123456789",
+            "mensagemComentario": "dsadasdasdas",
+            "idComentario": 1712216662
+          },
+          {
+            "nomeUsuario": "Nikolas Alencar",
+            "imgUsuario": "1123456789",
+            "mensagemComentario": "Adicionei um comentário integrado com view post",
+            "idComentario": 2708424800
+          },
+          {
+            "nomeUsuario": "Nikolas Alencar",
+            "imgUsuario": "1123456789",
+            "mensagemComentario": "Adicionei um comentário integrado com view post",
+            "idComentario": 581671448
+          },
+          {
+            "nomeUsuario": "Nikolas Alencar",
+            "imgUsuario": "1123456789",
+            "mensagemComentario": "Adicionei um comentário integrado ",
+            "idComentario": 8131258019
+          },
+          {
+            "nomeUsuario": "Nikolas Alencar",
+            "imgUsuario": "1123456789",
+            "mensagemComentario": "Adicionei um comentário integrado com view post",
+            "idComentario": 7231379038
+          }
+        ],
+        "postAberto": false,
+        "idPost": "12521153317"
+      },
+      {
+        "nomeUsuario": "Melissa de Jesus",
+        "imgUsuario": "19414568706",
+        "tipoPost": "PA",
+        "imgPost": "3275601571",
+        "interacoes": 15,
+        "idPost": "12521153317",
+        "comentarios": [
+          {
+            "nomeUsuario": "Melissa de Jesus",
+            "imgUsuario": "19414568706",
+            "mensagemComentario": "Adicionei um comentário para testar",
+            "idComentario": "81378640733"
+          }
+        ],
+        "postAberto": false
+      },
+      {
+        "nomeUsuario": "Rogério Silva",
+        "imgUsuario": "21359467999",
+        "tipoPost": "TR",
+        "imgPost": "65168959433",
+        "interacoes": 15,
+        "idPost": "26351834033",
+        "comentarios": [
+          {
+            "nomeUsuario": "Rogério Silva",
+            "imgUsuario": "21359467999",
+            "mensagemComentario": "Adicionei um comentário para testar",
+            "idComentario": "41163584167"
+          }
+        ],
+        "postAberto": false
+      },
+      {
+        "nomeUsuario": "Luis Rodolfo",
+        "imgUsuario": "90370163449",
+        "tipoPost": "AC",
+        "imgPost": "46576169248",
+        "interacoes": 15,
+        "idPost": "43612242740",
+        "comentarios": [
+          {
+            "nomeUsuario": "Juliana Costa",
+            "imgUsuario": "30875503453",
+            "mensagemComentario": "Adicionei um comentário para testar",
+            "idComentario": "6455766222"
+          }
+        ],
+        "postAberto": false
+      },
+      {
+        "nomeUsuario": "Carol Santana",
+        "imgUsuario": "97825793762",
+        "tipoPost": "DE",
+        "imgPost": "9803217144",
+        "interacoes": 15,
+        "idPost": "49606826452",
+        "comentarios": [
+          {
+            "nomeUsuario": "Luis Rodolfo",
+            "imgUsuario": "90370163449",
+            "mensagemComentario": "Adicionei um comentário para testar",
+            "idComentario": "35085974330"
+          }
+        ],
+        "postAberto": false
+      },
+      {
+        "nomeUsuario": "Nikolas Alencar",
+        "tipoPost": "",
+        "comentarios": [],
+        "interacoes": 0,
+        "postAberto": false,
+        "imgUsuario": "1123456789",
+        "imgPost": "36876752071",
+        "idPost": "682911032"
+      },
+      {
+        "nomeUsuario": "Juliana Costa",
+        "imgUsuario": "30875503453",
+        "tipoPost": "AL",
+        "imgPost": "36876752071",
+        "interacoes": 15,
+        "idPost": "7226245116",
+        "comentarios": [
+          {
+            "nomeUsuario": "Carol Santana",
+            "imgUsuario": "97825793762",
+            "mensagemComentario": "Adicionei um comentário para testar",
+            "idComentario": "96697105109"
+          }
+        ],
+        "postAberto": false
+      }
+    ]
+  }
+  try{
+    res.status(200).send(mock)
+  }catch(e){
+    res.status(500).send({message: `Error in ${e}`})
+  }
+});
 
 server.get("/get-posts", async (req, res) => {
   try{
     const snapshot = await getFirestore().collection('posts').get()
     const posts = snapshot.docs.map(post => post.data());
-    const postTransformado = posts.map(post => trocaImgPost(post))
-    res.status(200).send({message: 'Retorno concluído com sucesso!', data: postTransformado})
+    res.status(200).send({message: 'Retorno concluído com sucesso!', data: posts})
+  }catch(e){
+    res.status(500).send({message: `Error in ${e}`})
+  }
+});
+
+server.post("/remove-post", async (req, res) => {
+  try{
+    const ID_POST = req.body.idPost;
+    const db = getFirestore().collection('posts').doc(JSON.stringify(ID_POST));
+    db.delete().then(() => res.status(200).send({message: 'Retorno concluído com sucesso!'}))
+  }catch(e){
+    res.status(500).send({message: `Error in ${e}`})
+  }
+});
+
+server.post("/remove-comentario", async (req, res) => {
+  try{
+    const POST = req.body;
+    const ID_POST = POST.idPost;
+    getFirestore().collection("posts").doc(JSON.stringify(ID_POST)).set(POST).then(() => res.status(200).send({message: 'Retorno concluído com sucesso!'}))
+  }catch(e){
+    res.status(500).send({message: `Error in ${e}`})
+  }
+});
+
+server.post("/add-comment", async (req, res) => {
+  try{
+    const POST = req.body;
+    const ID_POST = POST.idPost;
+    getFirestore().collection("posts").doc(JSON.stringify(ID_POST)).set(POST).then(() => res.status(200).send({message: 'Retorno concluído com sucesso!'}))
   }catch(e){
     res.status(500).send({message: `Error in ${e}`})
   }
 });
 
 const uploadImage = (req) => {
-  const imagem = req['file']
-  const body = JSON.parse(req['body']?.body);
-  if(imagem){
-    console.log('Imagem', imagem)
-    console.log('Body', body)
-    const file = bucket.file(body.nomeImagem + '.jpg')
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: imagem.mimetype,
-      },
-    })
+    return new Promise((res, rej) => {
+      const imagem = req['file']
+      const body = JSON.parse(req['body']?.body);
+      if(imagem){
+        const file = bucket.file(body.nomeImagem + '.jpg')
+        const stream = file.createWriteStream({
+          metadata: {
+            contentType: imagem.mimetype,
+          },
+        })
 
-    stream.on("error", (e) => {
-      console.log(e);
-    })
+        stream.on("error", (e) => {
+          console.log(e);
+        })
 
-    stream.on("finish", async () => {
-      await file.makePublic();
-      req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${body.nomeImagem}`;
-    })
+        stream.on("finish", async () => {
+          await file.makePublic();
+          req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${body.nomeImagem}`;
+          res();
+        })
 
-    stream.end(imagem.buffer);
-  }
+        stream.end(imagem.buffer);
+      }
+    })
 }
 
 const post = async (body) => {
   const payloadPost = body.post;
-  console.log('PayloadPost', payloadPost.idPost)
   await getFirestore().collection("posts").doc(JSON.stringify(payloadPost.idPost)).set(payloadPost)
 }
 
-server.post("/postar", upload.single("arquivo"), (req, res) => {
+server.post("/postar", upload.single("arquivo"), async (req, res) => {
   try{
-    uploadImage(req)
-    post(JSON.parse(req['body']?.body));
-    res.status(200).send({message: 'Post salvo com sucesso'})
+    await uploadImage(req);
+    await post(JSON.parse(req['body']?.body));
+    res.status(200).send({message: 'Post salvo com sucesso'});
   }catch (e) {
     res.status(500).send({message: `Error in ${e}`})
   }
