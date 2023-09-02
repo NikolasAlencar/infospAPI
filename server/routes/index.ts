@@ -15,7 +15,7 @@ router.post('/obter/user/nome', authenticated, UsersController.getUserByUserName
 router.get('/get-posts', authenticated, PostsController.getPosts);
 router.get('/get-posts-mock', authenticated, PostsController.getPostsMock);
 router.post('/remove-post', authenticated, PostsController.removePost);
-// router.post('/remove-comentario', authenticated, PostsController.);
+router.post('/remove-comentario', authenticated, PostsController.removeComment);
 router.post('/add-comment', authenticated, PostsController.addComment);
 router.post('/postar', authenticated, upload.single("arquivo"), PostsController.postIn);
 router.post('/obter/options/options-register', authenticated, OptionsController.getRegister);

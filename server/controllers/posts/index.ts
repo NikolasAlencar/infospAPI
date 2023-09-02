@@ -2,6 +2,7 @@ import { addComment } from './AddComment';
 import { getPosts } from './GetPosts';
 import { getPostsMock } from './GetPostsMock';
 import { postIn } from './Post';
+import { removeComment } from './RemoveComment';
 import { removePost } from './RemovePost';
 
 export const PostsController = {
@@ -9,5 +10,6 @@ export const PostsController = {
     getPosts,
     removePost,
     postIn,
-    getPostsMock
+    getPostsMock,
+    removeComment
 }
