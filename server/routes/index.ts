@@ -13,7 +13,7 @@ router.post('/adicionar/novo-usuario', authenticated, UsersController.addNewUser
 router.post('/obter/user/nome', authenticated, UsersController.getUserByUserName);
 //router.post('/obter/user/email');
 router.get('/get-posts', authenticated, PostsController.getPosts);
-// router.get('/get-posts-mock', authenticated);
+router.get('/get-posts-mock', authenticated, PostsController.getPostsMock);
 router.post('/remove-post', authenticated, PostsController.removePost);
 // router.post('/remove-comentario', authenticated, PostsController.);
 router.post('/add-comment', authenticated, PostsController.addComment);
