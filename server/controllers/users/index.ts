@@ -1,9 +1,11 @@
-import { getUserByUserName } from './GetUserByUserName';
-import { authLogin } from './AuthLogin';
-import { addNewUser } from './AddNewUser';
+import { getUserByUserName } from "./GetUserByUserName";
+import { authLogin } from "./AuthLogin";
+import { addNewUser } from "./AddNewUser";
+import { getUserByUserEmail } from "./GetUserByEmail";
 
 export const UsersController = {
-    getUserByUserName,
-    authLogin,
-    addNewUser
-}
+  getUserByUserName,
+  getUserByUserEmail,
+  authLogin,
+  addNewUser,
+};
