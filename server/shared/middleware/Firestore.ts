@@ -8,6 +8,12 @@ export const getAllDocs = async (collection: string) => {
   return documents;
 }
 
+export const getOrderPosts = async () => {
+  const posts = await getCollection('posts').orderBy("dataPost", "desc").get();
+  const documents = posts.docs.map((doc: any) => doc.data());
+  return documents;
+}
+
 export const getDoc = async (collection: string, doc: any) => {
   const document = await getCollection(collection).doc(doc).get();
   return document;
