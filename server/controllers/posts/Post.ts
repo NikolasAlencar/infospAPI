@@ -6,6 +6,7 @@ export const postIn = async (req: any, res: any) => {
     try{
         await uploadImage(req);
         await post(JSON.parse(req['body']?.body));
+        await addNotify(JSON.parse(req['body']?.body));
         res.status(200).send({message: 'Post salvo com sucesso'});
     }catch (e) {
         res.status(500).send({message: `Error in ${e}`})
@@ -43,4 +44,22 @@ const post = async (body: any) => {
   const payloadPost = body.post;
   const document = await getCollection('posts').doc(JSON.stringify(payloadPost.idPost))
   document.set(payloadPost)
+}
+
+const addNotify = async (body: any) => {
+  const payloadPost = body.post;
+  await getCollection('notificacoes')
+    .doc(JSON.stringify(payloadPost.idPost))
+    .set(getBodyNotification(body.post))
+}
+
+const getBodyNotification = (body: any) => {
+  return {
+    timestamp: new Date().getTime(),
+    idPost: body.idPost,
+    dataPost: body.dataPost,
+    imgPost: body.imgPost,
+    descricao: body.descricao,
+    titulo: body.titulo
+  }
 }
