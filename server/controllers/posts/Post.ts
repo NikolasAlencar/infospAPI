@@ -55,11 +55,12 @@ const addNotify = async (body: any) => {
 
 const getBodyNotification = (body: any) => {
   return {
-    timestamp: new Date().getTime(),
+    timestamp: JSON.stringify(new Date().getTime()),
     idPost: body.idPost,
     dataPost: body.dataPost,
     imgPost: body.imgPost,
     descricao: body.descricao,
-    titulo: body.titulo
+    titulo: body.titulo,
+    localizacao: body.localizacao
   }
 }

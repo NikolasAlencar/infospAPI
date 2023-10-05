@@ -45,5 +45,6 @@ router.post(
   OptionsController.getRegister
 );
 router.post("/obter/options/options-sidenav", OptionsController.getSidenav);
+router.get("/get-notifications", PostsController.getNotifications);
 
 export { router };
