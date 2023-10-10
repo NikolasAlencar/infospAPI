@@ -4,6 +4,7 @@ import {
   PostsController,
   UsersController,
   OptionsController,
+  EmailController,
 } from "./../controllers";
 import { authenticated } from "../shared/middleware/Authenticated";
 
@@ -46,5 +47,6 @@ router.post(
 );
 router.post("/obter/options/options-sidenav", OptionsController.getSidenav);
 router.get("/get-notifications", PostsController.getNotifications);
+router.post("/enviar-email", EmailController.sendMail);
 
 export { router };
