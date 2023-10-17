@@ -4,7 +4,9 @@ import { enviroment } from "../../enviroments/enviroment";
 
 export const postIn = async (req: any, res: any) => {
     try{
-        await uploadImage(req);
+        if(req['file']){
+          await uploadImage(req);
+        } 
         await post(JSON.parse(req['body']?.body));
         await addNotify(JSON.parse(req['body']?.body));
         res.status(200).send({message: 'Post salvo com sucesso'});
@@ -17,26 +19,24 @@ const uploadImage = (req: any) => {
     return new Promise<void>((res, rej) => {
       const imagem = req['file']
       const body = JSON.parse(req['body']?.body);
-      if(imagem){
-        const file = bucket.file(body.nomeImagem + '.jpg')
-        const stream = file.createWriteStream({
-          metadata: {
-            contentType: imagem.mimetype,
-          },
-        })
+      const file = bucket.file(body.nomeImagem + '.jpg')
+      const stream = file.createWriteStream({
+        metadata: {
+          contentType: imagem.mimetype,
+        },
+      })
 
-        stream.on("error", (e: any) => {
-          console.log(e);
-        })
+      stream.on("error", (e: any) => {
+        console.log(e);
+      })
 
-        stream.on("finish", async () => {
-          await file.makePublic();
-          req.file.firebaseUrl = `https://storage.googleapis.com/${enviroment.bucket}/${body.nomeImagem}`;
-          res();
-        })
+      stream.on("finish", async () => {
+        await file.makePublic();
+        req.file.firebaseUrl = `https://storage.googleapis.com/${enviroment.bucket}/${body.nomeImagem}`;
+        res();
+      })
 
-        stream.end(imagem.buffer);
-      }
+      stream.end(imagem.buffer);
     })
 }
 
