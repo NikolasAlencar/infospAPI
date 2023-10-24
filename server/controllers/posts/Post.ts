@@ -15,11 +15,11 @@ export const postIn = async (req: any, res: any) => {
     }
 }
 
-const uploadImage = (req: any) => {
+export const uploadImage = (req: any) => {
     return new Promise<void>((res, rej) => {
       const imagem = req['file']
       const body = JSON.parse(req['body']?.body);
-      const file = bucket.file(body.nomeImagem + '.jpg')
+      const file = bucket.file(`${body.nomeImagem || body.imgUsuario}.jpg`)
       const stream = file.createWriteStream({
         metadata: {
           contentType: imagem.mimetype,
@@ -32,7 +32,7 @@ const uploadImage = (req: any) => {
 
       stream.on("finish", async () => {
         await file.makePublic();
-        req.file.firebaseUrl = `https://storage.googleapis.com/${enviroment.bucket}/${body.nomeImagem}`;
+        req.file.firebaseUrl = `https://storage.googleapis.com/${enviroment.bucket}/${body.nomeImagem || body.imgUsuario}`;
         res();
       })
 

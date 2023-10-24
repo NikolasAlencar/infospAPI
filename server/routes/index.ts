@@ -17,6 +17,7 @@ router.post("/auth/login", UsersController.authLogin);
 router.post(
   "/adicionar/novo-usuario",
   authenticated,
+  upload.single("arquivo"),
   UsersController.addNewUser
 );
 router.post(
