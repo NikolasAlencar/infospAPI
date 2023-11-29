@@ -1,6 +1,6 @@
 import { bucket } from "../../Server";
 import { getCollection } from "../../shared/middleware/Firestore";
-import { enviroment } from "../../enviroments/enviroment";
+import { enviroment } from "etc/secrets/enviroment";
 
 export const postIn = async (req: any, res: any) => {
     try{

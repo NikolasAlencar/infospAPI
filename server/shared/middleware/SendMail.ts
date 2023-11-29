@@ -1,4 +1,4 @@
-import { configSendEmail } from '../../enviroments/enviroment'
+import { configSendEmail } from 'etc/secrets/enviroment'
 
 const nodemailer = require("nodemailer");
 
