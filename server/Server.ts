@@ -1,5 +1,5 @@
 import { router } from './routes';
-import { enviroment } from 'etc/secrets/enviroment';
+import { enviroment } from './enviroments/enviroment';
 import { startSocket } from './shared/middleware/Socket';
 
 import express from 'express';

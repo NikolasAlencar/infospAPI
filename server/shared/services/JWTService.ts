@@ -1,4 +1,4 @@
-import { enviroment } from "etc/secrets/enviroment";
+import { enviroment } from "../../enviroments/enviroment";
 
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = enviroment.secretKey;
